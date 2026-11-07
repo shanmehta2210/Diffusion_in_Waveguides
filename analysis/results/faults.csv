@@ -1,0 +1,106 @@
+section,design,case,quantity,value
+dead heater,"vacuum, 1 heater",heater at 34 µm,pointing_deg,0.0
+dead heater,"vacuum, 1 heater",heater at 34 µm,strehl,1.0
+dead heater,"vacuum, 1 heater",heater at 34 µm,range_after_deg,0.0
+dead heater,"vacuum, 1 heater",heater at 34 µm,mw_per_deg_after,nan
+dead heater,"slot, 3 heaters",heater at 2 µm,pointing_deg,9.53616376002563
+dead heater,"slot, 3 heaters",heater at 2 µm,strehl,0.5656704149557591
+dead heater,"slot, 3 heaters",heater at 2 µm,range_after_deg,10.200008912043687
+dead heater,"slot, 3 heaters",heater at 2 µm,mw_per_deg_after,1.3309530511467633
+dead heater,"slot, 3 heaters",heater at 14 µm,pointing_deg,9.4229616837801
+dead heater,"slot, 3 heaters",heater at 14 µm,strehl,0.8657068983404738
+dead heater,"slot, 3 heaters",heater at 14 µm,range_after_deg,16.239544142581074
+dead heater,"slot, 3 heaters",heater at 14 µm,mw_per_deg_after,1.3988820782150162
+dead heater,"slot, 3 heaters",heater at 32 µm,pointing_deg,1.0213787073534344
+dead heater,"slot, 3 heaters",heater at 32 µm,strehl,0.3348396337853299
+dead heater,"slot, 3 heaters",heater at 32 µm,range_after_deg,0.9039462786989605
+dead heater,"slot, 3 heaters",heater at 32 µm,mw_per_deg_after,1.3601463208037687
+dead heater,"undercut, 3 heaters",heater at -8 µm,pointing_deg,10.147755101194148
+dead heater,"undercut, 3 heaters",heater at -8 µm,strehl,0.6675308324301455
+dead heater,"undercut, 3 heaters",heater at -8 µm,range_after_deg,9.739816338690055
+dead heater,"undercut, 3 heaters",heater at -8 µm,mw_per_deg_after,4.760604022574882
+dead heater,"undercut, 3 heaters",heater at 10 µm,pointing_deg,9.778174584464933
+dead heater,"undercut, 3 heaters",heater at 10 µm,strehl,0.657948716063069
+dead heater,"undercut, 3 heaters",heater at 10 µm,range_after_deg,8.791871843063328
+dead heater,"undercut, 3 heaters",heater at 10 µm,mw_per_deg_after,5.05172270183796
+dead heater,"undercut, 3 heaters",heater at 32 µm,pointing_deg,0.05891320232235207
+dead heater,"undercut, 3 heaters",heater at 32 µm,strehl,0.33415464961868696
+dead heater,"undercut, 3 heaters",heater at 32 µm,range_after_deg,0.39558899194249403
+dead heater,"undercut, 3 heaters",heater at 32 µm,mw_per_deg_after,1.1714120559997085
+dead heater,"dual-use, 5 heaters",heater at -33 µm,pointing_deg,9.999224366524045
+dead heater,"dual-use, 5 heaters",heater at -33 µm,strehl,0.9863847327841924
+dead heater,"dual-use, 5 heaters",heater at -33 µm,range_after_deg,22.799031271888815
+dead heater,"dual-use, 5 heaters",heater at -33 µm,mw_per_deg_after,5.430751358123161
+dead heater,"dual-use, 5 heaters",heater at -16 µm,pointing_deg,10.155171990578587
+dead heater,"dual-use, 5 heaters",heater at -16 µm,strehl,0.9416030577529089
+dead heater,"dual-use, 5 heaters",heater at -16 µm,range_after_deg,22.799031271888815
+dead heater,"dual-use, 5 heaters",heater at -16 µm,mw_per_deg_after,5.3314745910496075
+dead heater,"dual-use, 5 heaters",heater at 0 µm,pointing_deg,9.999223927172666
+dead heater,"dual-use, 5 heaters",heater at 0 µm,strehl,0.7001131100739001
+dead heater,"dual-use, 5 heaters",heater at 0 µm,range_after_deg,15.56910950962024
+dead heater,"dual-use, 5 heaters",heater at 0 µm,mw_per_deg_after,5.4839460456875235
+dead heater,"dual-use, 5 heaters",heater at 16 µm,pointing_deg,9.679807172229085
+dead heater,"dual-use, 5 heaters",heater at 16 µm,strehl,0.8154937162872279
+dead heater,"dual-use, 5 heaters",heater at 16 µm,range_after_deg,15.046478152756043
+dead heater,"dual-use, 5 heaters",heater at 16 µm,mw_per_deg_after,5.457931967111071
+dead heater,"dual-use, 5 heaters",heater at 33 µm,pointing_deg,0.16117713674284456
+dead heater,"dual-use, 5 heaters",heater at 33 µm,strehl,0.26756605955571067
+dead heater,"dual-use, 5 heaters",heater at 33 µm,range_after_deg,0.5013269181543826
+dead heater,"dual-use, 5 heaters",heater at 33 µm,mw_per_deg_after,1.8759703036431357
+dead heater,"vacuum, 1 heater",spare heater at 32 µm,range_after_deg,22.799031271888815
+dead heater,"vacuum, 1 heater",spare heater at 32 µm,mw_per_deg_after,0.5329061867348874
+dead heater,"slot, 3 heaters",spare at 34 µm replacing 32 µm,range_after_deg,21.95664104961067
+dead heater,"slot, 3 heaters",spare at 34 µm replacing 32 µm,mw_per_deg_after,1.40542593003178
+dead heater,"conventional, 33 heaters",any one heater,strehl_mean,0.9265641839923965
+dead heater,"conventional, 33 heaters",any one heater,strehl_worst,0.8541251407165642
+drive noise,"vacuum, 1 heater",independent,pointing_rms_deg,0.1001663890662284
+drive noise,"vacuum, 1 heater",independent,strehl_mean,0.9999496542994247
+drive noise,"slot, 3 heaters",independent,pointing_rms_deg,0.09034455647929708
+drive noise,"slot, 3 heaters",independent,strehl_mean,0.9594565975299665
+drive noise,"undercut, 3 heaters",independent,pointing_rms_deg,0.09780063861067814
+drive noise,"undercut, 3 heaters",independent,strehl_mean,0.8940777959775367
+drive noise,"dual-use, 5 heaters",independent,pointing_rms_deg,0.09693961114337699
+drive noise,"dual-use, 5 heaters",independent,strehl_mean,0.986215952131981
+drive noise,conventional,independent,pointing_rms_deg,0.004688742472672635
+drive noise,conventional,independent,strehl_mean,0.998835215021543
+drive noise,"vacuum, 1 heater",common,pointing_rms_deg,0.10042787519877426
+drive noise,"vacuum, 1 heater",common,strehl_mean,0.9999496350174467
+drive noise,"slot, 3 heaters",common,pointing_rms_deg,0.10134209287282504
+drive noise,"slot, 3 heaters",common,strehl_mean,0.9595956924797722
+drive noise,"undercut, 3 heaters",common,pointing_rms_deg,0.10134525398988789
+drive noise,"undercut, 3 heaters",common,strehl_mean,0.8942696015261277
+drive noise,"dual-use, 5 heaters",common,pointing_rms_deg,0.10097833297359726
+drive noise,"dual-use, 5 heaters",common,strehl_mean,0.9863837153492291
+drive noise,conventional,common,pointing_rms_deg,0.001152190744316748
+drive noise,conventional,common,strehl_mean,0.9996848860453772
+drift,"vacuum, 1 heater",pressure 10 Pa,pointing_error_deg,-0.04440399426111341
+drift,"vacuum, 1 heater",pressure 10 Pa,strehl,0.9999087075366578
+drift,"vacuum, 1 heater",pressure 30 Pa,pointing_error_deg,-0.1402385348060875
+drift,"vacuum, 1 heater",pressure 30 Pa,strehl,0.9992149414906346
+drift,"vacuum, 1 heater",pressure 100 Pa,pointing_error_deg,-0.4477453222905119
+drift,"vacuum, 1 heater",pressure 100 Pa,strehl,0.9925248315481281
+drift,"vacuum, 1 heater",pressure 300 Pa,pointing_error_deg,-1.1430477463658821
+drift,"vacuum, 1 heater",pressure 300 Pa,strehl,0.954909792060938
+drift,"vacuum, 1 heater",pressure 1000 Pa,pointing_error_deg,-2.503558110834713
+drift,"vacuum, 1 heater",pressure 1000 Pa,strehl,0.8240363041971367
+drift,"vacuum, 1 heater",pressure 10000 Pa,pointing_error_deg,-5.122769988754658
+drift,"vacuum, 1 heater",pressure 10000 Pa,strehl,0.6714514807931556
+drift,"vacuum, 1 heater",pressure 101325 Pa,pointing_error_deg,-6.190762186979834
+drift,"vacuum, 1 heater",pressure 101325 Pa,strehl,0.7317671805064
+drift,"slot in air, 3 heaters",pressure 0.75 atm,pointing_error_deg,0.1425891881907635
+drift,"slot in air, 3 heaters",pressure 0.75 atm,strehl,0.9256778798581063
+drift,"slot in air, 3 heaters",pressure 0.95 atm,pointing_error_deg,0.02288749371096621
+drift,"slot in air, 3 heaters",pressure 0.95 atm,strehl,0.9267965732858203
+drift,"slot in air, 3 heaters",pressure 1.05 atm,pointing_error_deg,-0.020831826542929477
+drift,"slot in air, 3 heaters",pressure 1.05 atm,strehl,0.927165565454276
+drift,all designs,"ambient +10 K, b = 0.0e+00",pointing_error_deg,-0.05999999999999999
+drift,all designs,"ambient +10 K, b = 7.0e-04",pointing_error_deg,0.010000000000000005
+drift,all designs,"ambient +10 K, b = 1.4e-03",pointing_error_deg,0.08
+drift,"slot in air, 3 heaters","ambient +10 K, gas only",pointing_error_deg,-0.13771839750404524
+drift,"slot in air, 3 heaters","ambient +10 K, gas only",strehl,0.9253705918187962
+drift,"vacuum, 1 heater","radiation, emissivity 0.5",pointing_error_deg,-0.02103970178499104
+drift,"vacuum, 1 heater","radiation, emissivity 0.5",strehl,0.9999764964947138
+drift,"vacuum, 1 heater","radiation, emissivity 0.5",mw_per_deg_after,0.5049295474356672
+drift,"vacuum, 1 heater","radiation, emissivity 1",pointing_error_deg,-0.04197699934337429
+drift,"vacuum, 1 heater","radiation, emissivity 1",strehl,0.9999064884416103
+drift,"vacuum, 1 heater","radiation, emissivity 1",mw_per_deg_after,0.5059802460118044

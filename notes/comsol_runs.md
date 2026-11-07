@@ -56,7 +56,7 @@ The Python reader already parses that.
 4. **Heater sweep:** `x_h = range(-32,1,34)`, 67 solves.
    - **Do not mirror.** The slot breaks the left–right symmetry, so negative positions must be simulated.
    - Keep x_h ≤ 34 so the 2 µm heater (33–35 µm) stays clear of the slot (36–38 µm). The last core edge is at 32.25 µm.
-   - Keep the slot ≥ 2 µm wide: Parsons 2025 saw damage with 1 µm trenches.
+   - Keep the slot ≥ 2 µm wide. (Correction, 7 Nov: Parsons 2025 saw damage at 1 µm trench *separation*; their release trenches themselves were 10–25 µm wide, so a real release slot would be wider than 2 µm, which helps.)
 5. **Also evaluate:** the maximum temperature in the heater domain for each x_h (a Global Evaluation, exported to a second small CSV). This is for reliability.
 6. **Export:** `kernel_slot_D15.csv` (and `kernel_slot_D15_heaterTmax.csv`).
 
@@ -150,6 +150,22 @@ The Python reader already parses that.
 - t_box and t_clad ±5% (1.9 and 2.1 µm).
 - Heater offset ±0.2 µm, for the chosen design's heaters.
 - **Export:** `kernel_slot_sens.csv`
+
+### R12. Realistic stack and release (added 7 Nov; full steps in the build guide doc)
+
+- **Model:** `modelL_real.mph`, a copy of `modelG_slot.mph`.
+- **Changes:**
+  - oxide above the heater, `t_top` = 0, 2, 4 µm;
+  - a 10 µm slot that doubles as the release window (36–46 µm);
+  - an isotropic cavity released from the slot side only (radius 81 µm from the slot centre, so the far anchor stays at −40 µm);
+  - gas conductivity air (0.026) or xenon (0.0055 W/m/K).
+- **Heaters:** 2, 14, 32, 34 µm, plus −32 to 30 µm in steps of 4.
+- **Export:** `kernel_R12.csv`.
+- **What it decides:**
+  - the power penalty of a real back-end stack (expect ×1.5–1.9);
+  - how much a wide slot and a deep cavity recover in air (expect 0.7–1.1 mW/deg against R2's 1.38);
+  - whether a xenon fill gets most of the vacuum gain (expect about 0.6 mW/deg).
+  - Estimates from `analysis/run_gas_loss.py`.
 
 ### Optional
 
