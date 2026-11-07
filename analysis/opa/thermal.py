@@ -71,6 +71,60 @@ class UndercutKernel:
         return np.interp(x, self.x, profile)
 
 
+class SweptKernel:
+    """A kernel exported as one column per heater position, on any grid of x_h.
+
+    Used for the Model G exports: kernel_undercut_far.csv (no slot, heaters out
+    to the cavity wall) and kernel_slot.csv (slot through the membrane at
+    36-38 µm). Between grid positions the profile is interpolated linearly, as
+    in UndercutKernel.
+
+    mirror=True treats the structure as symmetric about x = 0, so only x_h ≥ 0
+    needs to be exported and K(x; -x_h) = K(-x; x_h). The slot sits on one side
+    only and breaks that symmetry, so the slot kernel uses mirror=False and
+    every heater position must have been simulated.
+    """
+
+    def __init__(self, filename, name, mirror, expected_columns=None, data_dir=DATA_DIR):
+        names, data = read_comsol(data_dir / filename)
+        params = [column_parameters(n) for n in names[2:]]
+        x_h = np.array([p.get("x_h", np.nan) for p in params])
+        if expected_columns is not None and len(x_h) != expected_columns:
+            raise ValueError(
+                f"{filename}: {len(x_h)} kernel column(s), expected {expected_columns}. "
+                "Check the Export -> Data node: dataset = the new study's Parametric Solutions, "
+                "parameter selection (x_h) = All.")
+        if np.isnan(x_h).any():
+            raise ValueError(f"{filename}: a column header has no x_h value: {names[2:]}")
+        order = np.argsort(x_h)
+        self.name = name
+        self.mirror = mirror
+        self.x = data[:, 0]
+        self.x_h = np.round(x_h[order], 6)  # COMSOL writes 14.999999999999998 for 15
+        self.k = data[:, 2:][:, order]
+        self.params = [params[i] for i in order]
+        self.x_h_min = -self.x_h[-1] if mirror else self.x_h[0]
+        self.x_h_max = self.x_h[-1]
+
+    def column(self, x_h):
+        """The exported profile for a heater exactly at a grid position x_h."""
+        j = int(np.flatnonzero(np.isclose(self.x_h, x_h))[0])
+        return self.k[:, j]
+
+    def __call__(self, x, x_h):
+        """Rise in K per (W/m) at position(s) x for one heater at x_h."""
+        x = np.asarray(x, dtype=float)
+        if not self.x_h_min - 1e-9 <= x_h <= self.x_h_max + 1e-9:
+            raise ValueError(f"heater at {x_h} µm is outside the modelled range "
+                             f"{self.x_h_min:g} to {self.x_h_max:g} µm")
+        if self.mirror and x_h < 0:
+            x, x_h = -x, -x_h
+        j = int(np.clip(np.searchsorted(self.x_h, x_h, side="right") - 1, 0, len(self.x_h) - 2))
+        w = (x_h - self.x_h[j]) / (self.x_h[j + 1] - self.x_h[j])
+        profile = (1 - w) * self.k[:, j] + w * self.k[:, j + 1]
+        return np.interp(x, self.x, profile)
+
+
 def emitter_positions(n=N_EMITTERS, pitch=PITCH_UM):
     """Emitter centres, symmetric about x = 0.
 

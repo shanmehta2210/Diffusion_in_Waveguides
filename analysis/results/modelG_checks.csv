@@ -1,0 +1,32 @@
+run,quantity,value,expected,verdict
+R1,energy balance: runs in checks_energy_far.csv,41,41,ok
+R1,energy balance: worst |flux - 1 W/m|,0.000397,< 0.01,ok
+R1,"x_h = 0-32 vs kernel_undercut.csv, worst diff / peak",2.236e-05,< 0.005,ok
+R1,bit-identical to kernel_undercut.csv (stale export?),0,0,ok
+R1,"centre core, heater at 0",2.85,2.850 ± 0.5%,ok
+R1,"centre core, heater at 34",0.5235,≈ 0.43 (membrane model),ok
+R1,"centre core, heater at 36",0.3915,≈ 0.29 (membrane model),LOOK
+R1,"centre core, heater at 38",0.267,≈ 0.14 (membrane model),LOOK
+R1,centre core falls as the heater nears the wall,1,1,ok
+R2,energy balance: runs in checks_energy_slot.csv,67,67,ok
+R2,energy balance: worst |flux - 1 W/m|,0.0004609,< 0.01,ok
+R2,"centre core, heater at 0 (2.850 means slot not open)",3.686,≈ 4.4,ok
+R2,heater at 34: core at -32 µm,0.5293,≈ 0.76,LOOK
+R2,heater at 34: core at +0 µm,2.346,≈ 4.05,LOOK
+R2,heater at 34: core at +32 µm,4.857,≈ 8.4,LOOK
+R2,heater at 34: rms off a straight line / rise,0.02615,≈ 0.022,ok
+R2,heater at 34: stub (x = 39) / last core (x = 32),0.03118,≪ 1,ok
+R2,"asymmetry, heater at ±20 (0 means slot not open)",0.6745,> 0.05,ok
+R3a vacuum,"kernel columns (34 for a 2 µm step, 67 for 1 µm)",34,34 or 67,ok
+R3a vacuum,energy balance: runs in checks_energy_vacuum.csv,34,34,ok
+R3a vacuum,energy balance: worst |flux - 1 W/m|,0.0003541,< 0.01,ok
+R3a vacuum,"centre core, heater at 34",6.909,≈ 7.0,ok
+R3a vacuum,heater at 34: rms off a straight line / rise,0.0001575,< 0.01,ok
+R3a vacuum,one heater at 34: mW/deg against k·t/(814·d),1.052,≈ 1 (limit 0.506 mW/deg),ok
+R3a vacuum,one heater at 34: range (deg),22.8,22.8 (full),ok
+R3b slot 4 µm,"kernel columns (34 for a 2 µm step, 67 for 1 µm)",34,34 or 67,ok
+R3b slot 4 µm,energy balance: runs in checks_energy_4um.csv,34,34,ok
+R3b slot 4 µm,energy balance: worst |flux - 1 W/m|,0.000403,< 0.01,ok
+R3b slot 4 µm,"centre core, heater at 34",2.699,≈ 2.8,ok
+R3b slot 4 µm,heater at 34: rms off a straight line / rise,0.02614,< R2's 0.026,LOOK
+R2,hottest point in the heater at 34 (K per W/m),5.338,≈ 9-10,LOOK
