@@ -1,0 +1,164 @@
+% =====================================================================================
+\section{Discussion}
+\label{sec:discussion}
+% =====================================================================================
+
+\subsection{Comparison with published devices}
+\label{sec:compare}
+
+Our results are simulated and the published ones are measured unless marked otherwise. Steering power is compared at
+a fixed angle (\ang{10}) and scaled to $N=33$, because a wrapped array draws nearly the same power at any angle and
+power per degree would favour it at large angles.
+
+\paragraph{Few-wire steering.} The directly comparable designs are those that also steer with a few signals
+(\cref{tab:fewwire}). Measured cascaded arrays at our pitch need about \qtyrange{12}{17}{\mWdeg} when scaled to
+\num{33} emitters; the \stack{slot} and \stack{vacuum} designs need \num{1.38} and \qty{0.53}{\mWdeg},
+\numrange{10}{30} times less. The cascaded arrays are much faster (\qty{100}{\kilo\hertz} bandwidth~\cite{yaacobi2014}
+against our \qtyrange{50}{190}{\hertz} with plain steps), but their heated stages are micrometres long and run near
+\qty{500}{\celsius}, and their series feed accumulates loss and error along the bus.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Steering with few control signals. Power per degree of the published arrays is scaled to $N=33$ from the
+  reported totals (our estimate).}
+  \label{tab:fewwire}
+  \footnotesize
+  \setlength{\tabcolsep}{4pt}
+  \begin{tabularx}{\linewidth}{@{}P{0.18\linewidth}LcP{0.1\linewidth}P{0.1\linewidth}cP{0.11\linewidth}@{}}
+    \toprule
+    Work & Ramp made by & Wires & Array & Range & \unit{\mWdeg} & Basis \\
+    \midrule
+    This work, \stack{vacuum} & heat flow across a slotted membrane & 1 & $33\times\qty{2}{\micro\metre}$ &
+        \ang{22.8} one way & 0.53 & simulated \\
+    This work, \stack{slot} & same, in air & 3 & same & \ang{22.8} one way & 1.38 & simulated \\
+    This work, \stack{undercut} & membrane anchored at both walls & 4 & same & \ang{\pm 22.8} & 5.24 & simulated \\
+    \addlinespace
+    Yaacobi~\cite{yaacobi2014} & cascaded heaters on one bus & 1 & $16\times\qty{2}{\micro\metre}$ & \ang{51} &
+        $\approx12$ & measured, scaled \\
+    Poulton~\cite{poulton2016} & cascade in three groups & 3 & $50\times\qty{2}{\micro\metre}$ & \ang{46} &
+        $\approx17$ & measured, scaled \\
+    Van Acoleyen~\cite{vanacoleyen2009} & one triangular electrode & 1 & $16\times\qty{2}{\micro\metre}$ & \ang{2.3}
+        & $\propto N^2$ & measured \\
+    Hosseini~\cite{hosseini2025} & meander overlap (SiN, \qty{525}{\nano\metre}) & 4 & 16 & \ang{\pm 5.1} & --- &
+        measured \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\paragraph{One heater per emitter.} Against arrays of the best individual phase shifters the result depends on the
+device (\cref{sec:power}): at \ang{10} the \stack{slot} design equals \num{33} single-pass suspended
+heaters~\cite{fang2011} and the \stack{vacuum} design needs \num{3.6} times more than \num{33} folded record
+shifters~\cite{lu2015}. These arrays have not been built; the record devices are large (a \qty{6}{\milli\metre}
+folded arm~\cite{lu2015}) and would need a fan-in and \num{33} drivers. Measured thermo-optic OPAs draw
+\qtyrange{3.7}{9.4}{\milli\watt} per element~\cite{miller2020,phare2018}, against our
+\qtyrange{0.16}{0.42}{\milli\watt}, but their totals include the power used to cancel fabrication errors, which our
+design replaces with a trim.
+
+\paragraph{Lenses.} The two measured few-heater lenses found cost about \qty{40}{\milli\watt\per\rad} (shaped heaters
+on a silicon slab metalens~\cite{liu2023}) and \qtyrange{70}{110}{\milli\watt\per\rad} (meanders in silicon
+nitride~\cite{hosseini2025}), converted by us from the reported focal shifts and good to about a factor of two. Ours,
+at about \qty{1}{\milli\watt\per\rad}, is \numrange{30}{100} times lower. Most of this difference is due to the
+platform: those devices sit on solid substrates, and silicon nitride's thermo-optic coefficient is about seven times
+smaller than silicon's. The metalens is about ten times faster.
+
+\Cref{tab:scoreboard} summarises the comparison.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Summary of the comparison. Ours: two-dimensional simulation. Theirs: measured, or, where marked $\dagger$,
+  our estimate for \num{33} copies of a measured device.}
+  \label{tab:scoreboard}
+  \footnotesize
+  \begin{tabularx}{\linewidth}{@{}P{0.17\linewidth}P{0.25\linewidth}LP{0.2\linewidth}@{}}
+    \toprule
+    Metric & This work & Best published & Outcome \\
+    \midrule
+    Few-wire steering power & \qtyrange{0.53}{1.38}{\mWdeg}, 1--3 wires & \qtyrange{12}{17}{\mWdeg}, 1--3
+        wires~\cite{yaacobi2014,poulton2016} & $10$--$30\times$ lower \\
+    Power at \ang{10} & \qty{5.3}{\milli\watt} (\stack{vacuum}), \qty{13.8}{\milli\watt} (\stack{slot}) &
+        \qty{1.5}{\milli\watt}$^\dagger$~\cite{lu2015}; \qty{14.4}{\milli\watt}$^\dagger$~\cite{fang2011} &
+        $3.6\times$ higher than the record; equal to single-pass \\
+    Tunable lens & \qtyrange{0.9}{1.2}{\milli\watt\per\rad}, 1--5 wires & \qtyrange{40}{110}{\milli\watt\per\rad}
+        (est.)~\cite{liu2023,hosseini2025} & $30$--$100\times$ lower \\
+    Speed, \ang{0}$\to$\ang{10} & \qtyrange{2}{9}{\milli\second} plain; \qtyrange{0.16}{1.4}{\milli\second}
+        with pre-emphasis & \qty{2}{\micro\second}~\cite{jacques2019} to \qty{144}{\micro\second}~\cite{fang2011}
+        per device & slower; power $\times$ time $1.2$--$16\times$ higher with pre-emphasis \\
+    Field of view & \ang{\pm 22.8} (one way for \stack{slot}, \stack{vacuum}) & \ang{51} at the same
+        pitch~\cite{yaacobi2014} & comparable within pitch class \\
+    Calibration & one trim, then a linear fit and a gain curve & a search per beam~\cite{lian2024} & simpler, given
+        the trim \\
+    Independent errors & not correctable; trim required & fully corrected & worse \\
+    Patterns & ramp and dome only & arbitrary & worse \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Agreement with real devices}
+\label{sec:fidelity}
+
+The single-heater versions of our thermal model agree with measured devices. Our \stack{standard} heater has
+$\Ppi=\qty{19.7}{\milli\watt}$, against \qtyrange{22.8}{29.2}{\milli\watt} measured for TiN and doped-silicon
+heaters~\cite{jacques2019}; our \stack{undercut} heater has \qty{1.35}{\milli\watt} and \qty{1.6}{\milli\second},
+against \qty{1.07}{\milli\watt} and \qtyrange{1.3}{1.9}{\milli\second} for a foundry undercut~\cite{parsons2025}.
+Published comparisons of simulated and measured thermo-optic devices agree to about $\pm\qty{15}{\percent}$ for
+conventional heaters and within a factor of \numrange{0.67}{1.5} for undercut structures with idealised geometry. A
+real back-end stack would also add oxide above the heater, increasing $\kt$ and the power by \numrange{1.5}{1.9}
+times. A fabricated \stack{slot} design would therefore need roughly \qtyrange{9}{40}{\milli\watt} at \ang{10}, and a
+\stack{vacuum} design \qtyrange{3.5}{15}{\milli\watt} (our estimate), still several times below the measured few-wire
+arrays. The structure itself, a single \qty{80}{\micro\metre} membrane under a whole array, has not been fabricated;
+published undercuts isolate single devices with undercuts of order \qty{10}{\micro\metre}~\cite{parsons2025}.
+The \stack{vacuum} design also needs a sealed package. Gas conduction across the \qty{15}{\micro\metre} cavity
+falls only once the mean free path approaches the gap, and a simple kinetic estimate puts the required pressure
+near \qty{100}{\pascal}; no thermo-optic device has, to our knowledge, been measured in vacuum.
+
+\subsection{Limitations}
+\label{sec:limitations}
+
+\Cref{tab:limits} lists the limitations, the claims they affect and how each could be resolved. The most important is
+that all thermal results are two-dimensional: a finite heater loses some heat through the cavity ends (an estimated
+\qtyrange{5}{8}{\percent} more power for \qty{1}{\milli\metre} heaters), and heat conducted along the waveguides could
+reach the gratings. In addition, the \stack{slot} and \stack{vacuum} designs steer in one direction only, and the
+design does not scale unchanged to large apertures: at \num{128} emitters the hot end would reach about
+\qty{250}{\kelvin} at \ang{10}, and settling would be about \num{16} times slower.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Limitations.}
+  \label{tab:limits}
+  \footnotesize
+  \begin{tabularx}{\linewidth}{@{}P{0.24\linewidth}P{0.22\linewidth}LP{0.18\linewidth}@{}}
+    \toprule
+    Limitation & Affects & Expected size & Resolved by \\
+    \midrule
+    2D model; no heater or cavity ends & all powers; grating temperature & $+$\qtyrange{5}{8}{\percent} power (est.);
+        grating heating unknown & 3D thermal model \\
+    No fabricated device & absolute values & $\times0.67$--$1.5$; $\times1.5$--$1.9$ for a real stack & test chip \\
+    Idealised release and \qty{2}{\micro\metre} slot & \stack{slot} power & a wider slot and deeper cavity help &
+        realistic-stack model \\
+    Mechanics not modelled & membrane feasibility & buckling margin, slot-edge curl unknown & thermo-mechanical
+        model \\
+    Vacuum operation unprecedented & \stack{vacuum} results & --- & measurement against pressure \\
+    Emitters identical and independent & far-field model & small ($L_c=\qty{2.2}{\metre}$) & 3D full-wave model \\
+    Static trim assumed & beam quality beyond small angles & $S\approx0.78$ untrimmed at \ang{10} & trim shown on
+        an OPA \\
+    Silicon's $\mathrm{d}n/\mathrm{d}T$ growth unconfirmed & sign of pointing error & $\pm\ang{0.25}$ at \ang{10}
+        before gain correction & coefficients of Ref.~\cite{cocorullo1999} \\
+    Kernel-shape errors not modelled & calibration & expected to rescale the ramp & sensitivity runs \\
+    One-way steering (\stack{slot}, \stack{vacuum}) & field of view & half the field, or twice the power &
+        two-sided layout \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\subsection{Applications and further work}
+
+The design is a low-wire, low-power, slow actuator for smooth phase profiles over a small aperture. It suits tasks
+that need a ramp or a parabola of variable strength at rates below about \qty{100}{\hertz}, such as tip-tilt
+correction behind a telescope in ground-level free-space links, where loop bandwidths of \qtyrange{1}{70}{\hertz} are
+required~\cite{frost2024}, coarse beam acquisition and variable focus. It does not suit LiDAR scanning, which needs
+\qtyrange{10}{100}{\kilo\hertz}, or adaptive optics, which needs arbitrary phase profiles.
+
+The next steps, all specified as COMSOL models, are: a three-dimensional model of a finite heater and cavity including
+the gratings; a model with a realistic back-end stack, a wider release slot and an isotropic cavity; the
+thermo-mechanical bow of the slotted membrane; kernel sensitivities to fabrication variations; and a two-sided slot
+layout.

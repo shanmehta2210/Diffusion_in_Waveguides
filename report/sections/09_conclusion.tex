@@ -1,0 +1,38 @@
+% =====================================================================================
+\section{Conclusion}
+\label{sec:conclusion}
+% =====================================================================================
+
+This report examined whether the heat that spreads between the waveguides of a thermo-optic phased array, normally
+suppressed, can be used to steer it. In simulation it can, provided the structure makes the steady temperature
+profile take the shape of the required phase.
+
+Heat spreading acts as a spatial low-pass filter, and the ratio of spreading length to pitch determines what a few
+heaters can do. On a standard stack ($\Lth/d\approx1.7$) a few heaters cannot steer. On a membrane undercut beneath
+the array ($\Lth/d\approx10$) three or four heaters steer at about \qty{4.9}{\mWdeg}, but most of the edge heater's
+power flows into the nearby wall. A slot past that heater removes this path, so the heat crosses the array and the
+temperature becomes a linear ramp. Three heaters then steer \num{33} emitters across \ang{22.8} at \qty{1.38}{\mWdeg}
+in air, and one heater does so at \qty{0.53}{\mWdeg} in vacuum, within \qty{5}{\percent} of a conduction limit that is
+independent of the number of emitters. Uniform heating of a membrane between two walls gives a parabolic profile and
+hence a one-wire tunable lens at about \qty{1}{\milli\watt\per\rad}.
+
+The three capabilities of individual control are lost to a quantified extent. Without phase wrapping the power grows
+with angle, the hottest waveguide is about \qty{62}{\kelvin} above ambient at \ang{10}, and a \ang{10} step takes
+\qtyrange{2}{9}{\milli\second} with a plain drive, or \qtyrange{0.16}{1.4}{\milli\second} when each heater's
+drive is shaped in time, provided the thermal time scale is known to a few per cent. Only two to four phase patterns are usable. Independent fabrication errors cannot be
+corrected, so a one-time static trim is required, after which calibration reduces to a linear fit and a gain curve.
+
+Compared with published devices, the design needs \numrange{10}{30} times less power than measured few-wire arrays and
+\numrange{30}{100} times less than measured few-heater lenses, and is correspondingly slower. It is not the
+lowest-power phased array: \num{33} of the best folded phase shifters would hold \ang{10} with about a quarter of the
+power, but would require \num{33} wires and a fan-in.
+
+These results rest on two-dimensional finite-element models that pass their convergence, conservation and consistency
+checks, and on an array model that reproduces its analytic limits. They have not been tested in three dimensions or on
+a fabricated device. Within these limits, thermal crosstalk can be used as a resource for the smooth phase profiles
+that steering and focusing require, at a quantified cost in speed and control.
+
+\section*{Data and code availability}
+\addcontentsline{toc}{section}{Data and code availability}
+The COMSOL exports, the Python code, the result tables and the figure scripts are available at
+\url{https://github.com/shanmehta2210/Diffusion_in_Waveguides}.

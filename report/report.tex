@@ -1,0 +1,172 @@
+% =====================================================================================
+%  Thermal crosstalk as a resource: a few-heater, heat-spreading silicon optical phased array
+%  EE798 (Nanophotonics) course project report, IIT Kanpur, November 2026
+%
+%  Build:  pdflatex report  ->  bibtex report  ->  pdflatex report  (twice)
+%  On Overleaf: upload this folder as it is (report.tex, sections/, figures/, references.bib).
+% =====================================================================================
+\documentclass[11pt,a4paper]{article}
+
+% ---------- encoding, fonts, page ------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,hmargin=29mm,vmargin=26mm,headheight=14pt]{geometry}   % 152 mm text width
+\linespread{1.06}
+\setlength{\parskip}{0.35\baselineskip plus 1pt}
+\setlength{\parindent}{0pt}
+
+% ---------- mathematics and units ------------------------------------------------------
+\usepackage{amsmath,amssymb,bm}
+\usepackage{siunitx}
+\sisetup{
+  per-mode            = symbol,
+  range-phrase        = {--},
+  range-units         = single,
+  separate-uncertainty= true,
+  detect-weight       = true,
+  mode                = match,
+  group-minimum-digits= 5,
+}
+\DeclareSIUnit\rad{rad}
+\DeclareSIUnit\deg{deg}
+
+% ---------- figures and tables ---------------------------------------------------------
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage[font=small,labelfont=bf,labelsep=period,skip=6pt]{caption}
+\usepackage{subcaption}
+\usepackage{booktabs,tabularx,array,multirow,longtable,threeparttable}
+\usepackage{float,placeins}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\setlist{itemsep=2pt,topsep=3pt,parsep=0pt,leftmargin=1.6em}
+\renewcommand{\arraystretch}{1.15}
+\newcolumntype{L}{>{\raggedright\arraybackslash}X}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\setlength{\textfloatsep}{14pt plus 2pt minus 2pt}
+\setlength{\floatsep}{12pt plus 2pt minus 2pt}
+\setlength{\intextsep}{12pt plus 2pt minus 2pt}
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.7}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.75}
+
+% ---------- headings, header, appendix -------------------------------------------------
+\usepackage{titlesec}
+\titleformat{\section}{\Large\bfseries}{\thesection}{0.8em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{0.8em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection}{0.8em}{}
+\titlespacing*{\section}{0pt}{18pt plus 4pt minus 2pt}{6pt}
+\titlespacing*{\subsection}{0pt}{13pt plus 3pt minus 2pt}{4pt}
+\titlespacing*{\subsubsection}{0pt}{10pt plus 2pt minus 2pt}{3pt}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\itshape Thermal crosstalk as a resource for optical phased arrays}
+\fancyhead[R]{\small\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+% ---------- references and links -------------------------------------------------------
+\usepackage[numbers,sort&compress]{natbib}
+\setlength{\bibsep}{3pt plus 1pt}
+\usepackage[colorlinks=true,linkcolor=blue!45!black,citecolor=blue!45!black,urlcolor=blue!45!black]{hyperref}
+\usepackage{doi}
+\usepackage[capitalise,noabbrev,nameinlink]{cleveref}
+\crefname{equation}{Eq.}{Eqs.}
+\Crefname{equation}{Equation}{Equations}
+\crefname{appendix}{Appendix}{Appendices}
+
+% ---------- project macros -------------------------------------------------------------
+\newcommand{\neff}{n_{\mathrm{eff}}}
+\newcommand{\dndT}{\mathrm{d}\neff/\mathrm{d}T}
+\newcommand{\Ppi}{P_{\pi}}
+\newcommand{\Lth}{L_{\mathrm{th}}}
+\newcommand{\Lh}{L_{\mathrm{h}}}
+\newcommand{\kt}{k\,t}
+\newcommand{\xh}{x_{\mathrm{h}}}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\est}{(est.)}
+\newcommand{\mWdeg}{\milli\watt\per\deg}
+\newcommand{\KmW}{\kelvin\metre\per\watt}        % temperature rise per W/m of heater power
+\newcommand{\stack}[1]{\textsf{#1}}               % names of the four structures
+
+\hypersetup{
+  pdftitle  = {Thermal crosstalk as a resource: steering and focusing a silicon optical phased array with a few heaters},
+  pdfauthor = {Shreyansh Mehta},
+}
+
+% =====================================================================================
+\begin{document}
+
+\begin{titlepage}
+  \centering
+  \vspace*{22mm}
+  {\large EE798: Nanophotonics \quad$\cdot$\quad Course project report\par}
+  \vspace{16mm}
+  {\LARGE\bfseries Thermal crosstalk as a resource:\par}
+  \vspace{3mm}
+  {\Large\bfseries steering and focusing a silicon optical phased array\\[2pt] with a few heaters\par}
+  \vspace{14mm}
+  {\large Shreyansh Mehta\par}
+  \vspace{2mm}
+  {\normalsize Department of Physics, Indian Institute of Technology Kanpur\par}
+  \vspace{2mm}
+  {\normalsize November 2026\par}
+  \vfill
+\end{titlepage}
+
+% ---------- abstract -------------------------------------------------------------------
+\begin{abstract}
+\noindent
+Silicon optical phased arrays (OPAs) usually give each emitter its own heater and are designed so that heat does
+not spread from one waveguide to the next. This report examines whether that spreading can be used instead,
+so that $K$ heaters steer $N>K$ emitters. We model a silicon-on-insulator array of \num{33} emitters at
+\qty{2}{\micro\metre} pitch and \qty{1550}{\nano\metre}, using verified COMSOL finite-element models for the
+optics and heat flow and a Python model of the array for the far field and the heater optimisation.
+Heat spreading acts as a spatial low-pass filter on the phase. On a standard stack it is too short-ranged for
+few heaters to steer. On an oxide membrane suspended under the whole array, a slot past the edge heater forces
+all the heat across the array and produces a linear phase ramp: three heaters steer \ang{22.8} at
+\qty{1.38}{\mWdeg} in air, and in vacuum one heater does so at \qty{0.53}{\mWdeg}, within \qty{5}{\percent} of
+a conduction limit that is independent of $N$. This is \numrange{10}{30} times below published few-wire arrays
+at the same pitch, but \num{3.6} times above an array of the best published phase shifters at \ang{10}, because a
+smooth ramp cannot be phase-wrapped. The same membrane forms a one-wire tunable lens at about
+\qty{1}{\milli\watt\per\rad}. The costs are millisecond settling, which drives shaped independently for each heater shorten six to twelve
+times, two to four usable phase patterns, a hottest
+waveguide about \qty{62}{\kelvin} above ambient at \ang{10}, and the need for a one-time static trim of
+fabrication errors.
+\end{abstract}
+
+\vspace{4mm}
+{\small\tableofcontents}
+\clearpage
+
+% ---------- body -----------------------------------------------------------------------
+\input{sections/01_introduction}
+\input{sections/02_background}
+\input{sections/03_device_models}
+\input{sections/04_methods}
+\input{sections/05_verification}
+\input{sections/06_results_steering}
+\input{sections/07_results_other}
+\input{sections/08_discussion}
+\input{sections/09_conclusion}
+
+% ---------- back matter ----------------------------------------------------------------
+\section*{Acknowledgements and use of tools}
+\addcontentsline{toc}{section}{Acknowledgements and use of tools}
+The finite-element models were built and run in COMSOL Multiphysics~6.3~\cite{comsol} on the institute licence.
+The analysis uses NumPy and SciPy~\cite{scipy2020}. An AI assistant (Claude, Anthropic) was used, as the course
+permits, to help write and check the analysis code, to search and summarise the literature, and to draft and
+edit text and figures; every model was run by the author, and every number in this report can be regenerated
+from the exported data with the project's scripts.
+
+\bibliographystyle{unsrtnat}
+\bibliography{references}
+
+
+
+\end{document}

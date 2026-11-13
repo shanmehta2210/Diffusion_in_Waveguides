@@ -77,9 +77,10 @@ def panel_label(ax, letter, x=-0.02, y=1.02):
 
 
 def save(fig, name):
-    """Write figures/<name>.pdf (for the LaTeX report) and .png (for slides)."""
+    """Write figures/<name>.pdf (for the LaTeX report) and .png (for slides; 300 dpi, so a
+    full-width figure is about 1900 px wide, enough for a 1080p slide)."""
     FIG_DIR.mkdir(exist_ok=True)
     fig.savefig(FIG_DIR / f"{name}.pdf")
-    fig.savefig(FIG_DIR / f"{name}.png", dpi=220)
+    fig.savefig(FIG_DIR / f"{name}.png", dpi=300)
     plt.close(fig)
     print(f"  wrote figures/{name}.pdf and .png")

@@ -124,3 +124,19 @@ def beam_metrics(u, intensity, ep, pitch=PITCH_UM):
         "main_lobe_fraction": main_power / np.trapezoid(intensity, theta),
         "strehl": i_max / ep(u_pk),
     }
+
+
+def near_field_intensity(phases, x_emit, X, Z, ep):
+    """Light intensity at points (X, Z) above the array, in the plane across it (2D, scalar).
+
+    Each emitter is treated as a line source along its grating: a cylindrical wave
+    exp(i(φ_n + k0·r_n))/√r_n from (x_n, 0), weighted by the single-emitter field √EP at
+    the angle it is seen from. Summing them shows where the light actually goes before
+    the far field: a tilted beam for a ramp, a spot at distance f for a lens. With this
+    sign convention a phase φ = -k0·x²/(2f) focuses at height f, matching opa/lens.py, and
+    far away the sum reduces to the array factor used above.
+    """
+    dx = X[None] - np.asarray(x_emit)[:, None, None]
+    r = np.hypot(dx, Z[None])
+    field = np.sqrt(ep(dx / r)) / np.sqrt(r) * np.exp(1j * (np.asarray(phases)[:, None, None] + K0 * r))
+    return np.abs(field.sum(axis=0)) ** 2

@@ -1,0 +1,108 @@
+% =====================================================================================
+\section{Verification}
+\label{sec:verification}
+% =====================================================================================
+
+Verification asks whether the equations were solved correctly; validation asks whether they are the right
+equations. This section covers verification. Validation is possible only indirectly, by
+comparison with published devices (\cref{sec:fidelity}), since nothing was fabricated.
+
+\subsection{Finite-element models}
+\label{sec:comsolchecks}
+
+\Cref{tab:checks} lists the checks. Each quantity used in the analysis was recomputed on finer meshes and larger
+domains; every thermal run was tested for energy balance (heat leaving through the substrate equals the
+\qty{1}{\watt\per\metre} supplied); the grating model was tested for power balance and against the grating
+equation; and quantities computed by two different studies were compared.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Verification checks on the finite-element models. ``Result'' is the change in, or value of, the quantity
+  used by the analysis.}
+  \label{tab:checks}
+  \footnotesize
+  \begin{tabularx}{\linewidth}{@{}P{0.27\linewidth}P{0.2\linewidth}P{0.22\linewidth}L@{}}
+    \toprule
+    Check & Quantity & Result & Criterion \\
+    \midrule
+    \multicolumn{4}{@{}l}{\emph{Waveguide model}} \\
+    mesh refined ($35/150\to18/70$\,nm) & $\neff$ & \num{4.5e-5} & $<\num{1e-4}$ \\
+    box widened \qtyrange{4}{8}{\micro\metre} & $\neff$ & \num{2e-6} & $<\num{1e-4}$ \\
+    linearity over \qty{100}{\kelvin} & deviation from fit & \num{3.5e-6} & $\ll$ total change \num{2.0e-2} \\
+    decay of supermode splitting & slope of $\ln\Delta n$ & \qty{8.3}{\per\micro\metre} & mode tail,
+        $\approx\qty{8}{\per\micro\metre}$ \\
+    \addlinespace
+    \multicolumn{4}{@{}l}{\emph{Thermal model}} \\
+    energy balance, every stationary run & heat out / heat in & worst \qty{0.05}{\percent} off & within
+        \qty{1}{\percent} \\
+    finer oxide mesh (\qtyrange{250}{125}{\nano\metre}) & core rise & $<\qty{0.1}{\percent}$ & $<\qty{1}{\percent}$ \\
+    domain width $\pm150\to\pm\qty{300}{\micro\metre}$ & core rise & $-\qty{0.04}{\percent}$ & $<\qty{1}{\percent}$ \\
+    substrate depth \qtyrange{100}{200}{\micro\metre} & core rise & $+\qty{1.2}{\percent}$, uniform to \num{e-4} &
+        common offset only \\
+    oxide in place of Si cores & core rise & $+\qty{3}{\percent}$ at peak & informative \\
+    buried oxide \qtyrange{2}{3}{\micro\metre} & core rise & $+\qty{26}{\percent}$ & design parameter \\
+    mode solved in the heated field & solved / predicted $\Delta\neff$ & \num{0.999}, \num{0.997}, \num{1.000} &
+        within \qty{3}{\percent} \\
+    step responses at late time & against stationary kernels & within \qty{0.01}{\percent} & within
+        \qty{1}{\percent} \\
+    step-response overshoot & excess over final value & $\le\qty{0.14}{\percent}$ & $<\qty{0.5}{\percent}$ \\
+    \stack{vacuum} ramp & rms deviation from a line & \qty{0.016}{\percent} & $<\qty{1}{\percent}$ \\
+    \stack{vacuum} power & against conduction limit & \num{0.532} vs \qty{0.506}{\mWdeg} & within
+        \qty{5}{\percent}, nothing fitted \\
+    \addlinespace
+    \multicolumn{4}{@{}l}{\emph{Grating model}} \\
+    power balance, \num{18} runs & $R+T+\text{up}+\text{down}$ & \numrange{1.005}{1.011} & within
+        \qty{3}{\percent} \\
+    grating equation, \num{18} runs & emission angle & within \ang{0.03} & nothing fitted \\
+    leakage against transmission & $T$ over \qty{34.5}{\micro\metre} & \qty{73}{\percent} predicted,
+        \qty{71}{\percent} found & consistent \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Mesh and domain width change the \stack{standard} kernel by less than \qty{0.1}{\percent}. A deeper substrate adds \qty{1.2}{\percent} of the peak to every core equally, which
+is a common phase and does not affect steering. The buried-oxide thickness changes the kernel substantially and is
+a design parameter, fixed at \qty{2}{\micro\metre}.
+
+Mesh convergence was tested with two or three meshes
+per quantity and is reported as the observed change, not as a formal grid-convergence index; the changes are two
+orders of magnitude below the effects reported.
+\subsection{Python model}
+\label{sec:pipelinechecks}
+
+Before any result was computed, the Python model was run against \num{54} checks with known answers; all pass
+(\cref{tab:pipelinechecks}). They confirm that the constants and kernels are read
+correctly from the COMSOL data; that the far field reproduces the analytic beam width $0.886\,\lambda/(Nd)$, the
+\qty{13.26}{\decibel} first side lobe, the steering law \cref{eq:steer} and the two equal beams at
+$\Delta\phi=\pi$; that the mean Strehl ratio for random errors follows the finite-$N$ Ruze formula (\cref{eq:ruze});
+and that the fit satisfies its optimality conditions and reproduces the exact conventional power for isolated
+heaters.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Checks on the Python model; all \num{54} pass.}
+  \label{tab:pipelinechecks}
+  \small
+  \begin{tabularx}{\linewidth}{@{}P{0.24\linewidth}Lc@{}}
+    \toprule
+    Group & Compared with & Checks \\
+    \midrule
+    Constants & $\dndT$ refitted from the waveguide model; $\gamma$ & 2 \\
+    Kernels & peak values, $\Ppi$, ratios at 2--\qty{32}{\micro\metre}, symmetry, interpolation & 15 \\
+    Temperature to phase & coupled mode solve & 3 \\
+    Phase matrix & emitter positions; mirror rule & 5 \\
+    Element pattern & \num{0.90} at \ang{20}, \num{0.87} at \ang{22.8} & 2 \\
+    Far field & beam angle, width, side and grating lobes, ramps, $\Delta\phi=\pi$ & 16 \\
+    Statistics & mean Strehl against the Ruze relation & 3 \\
+    Fit & scaling, optimality of the residual & 4 \\
+    Conventional benchmark & known powers; diagonal $G$ & 4 \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+\subsection{Assumptions not verified}
+\label{sec:notverified}
+
+Three assumptions are not tested by any simulation and are listed as limitations (\cref{sec:limitations}): heat
+flow is two-dimensional (no heater or cavity ends, and no heat conducted along the waveguides to the gratings);
+emitters are identical and independent in the far-field model; and the pressure needed for vacuum operation relies on
+a simple kinetic model of gas conduction.

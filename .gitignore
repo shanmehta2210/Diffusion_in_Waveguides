@@ -1,2 +1,10 @@
 *.mph
 *.mph.lock
+
+# LaTeX build files
+report/*.aux
+report/*.log
+report/*.out
+report/*.toc
+report/*.bbl
+report/*.blg
